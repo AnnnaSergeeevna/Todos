@@ -26,9 +26,13 @@ function TodoApp() {
         );
     };
 
+    const removeCompletedTasks = () => {
+        setTasks(tasks.filter((task) => !task.completed));
+    };
+
     const completedTasks = tasks.filter((task) => task.completed);
     const uncompletedTasks = tasks.filter((task) => !task.completed);
-    const percentOfCompleting = Math.round((completedTasks.length / tasks.length) * 100);
+    const percentOfCompleting = tasks.length > 0 ? Math.round((completedTasks.length / tasks.length) * 100) : 0;
 
     return (
         <div className="list">
@@ -45,43 +49,74 @@ function TodoApp() {
                 </button>
             </div>
 
-            <div className="tasksScope">
-                <h2>Uncompleted Tasks</h2>
-                <ul className="taskList">
-                    {uncompletedTasks.map((task) => (
-                        <li key={task.id} className="taskItem">
-                            <input
-                                type="checkbox"
-                                checked={task.completed}
-                                onChange={() => toggleTask(task.id)}
-                                className="radio"
-                            />
-                            <span className="taskText">{task.text}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="tasksScope">
-                <h2>Completed Tasks</h2>
-                <ul className="taskList">
-                    {completedTasks.map((task) => (
-                        <li key={task.id} className="taskItem">
-                            <input
-                                type="checkbox"
-                                checked={task.completed}
-                                onChange={() => toggleTask(task.id)}
-                                className="radio"
-                            />
-                            <span className="taskText">{task.text}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
             {tasks.length > 0 && (
-                <div className="rateScope">
-                    <span className="percentOfCompleting">Percent of completing {percentOfCompleting}%</span>
-                </div>)}
+                <>
+                    <div className="tasksScope">
+                        <h2>All Tasks</h2>
+                        <ul className="taskList">
+                            {tasks.map((task) => (
+                                <li key={task.id} className="taskItem">
+                                    <input
+                                        type="checkbox"
+                                        checked={task.completed}
+                                        onChange={() => toggleTask(task.id)}
+                                        className="radio"
+                                    />
+                                    <span className={`taskText ${task.completed ? "completed" : ""}`}>
+                                        {task.text}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="tasksScope">
+                        <h2>Uncompleted Tasks</h2>
+                        <ul className="taskList">
+                            {uncompletedTasks.map((task) => (
+                                <li key={task.id} className="taskItem">
+                                    <input
+                                        type="checkbox"
+                                        checked={task.completed}
+                                        onChange={() => toggleTask(task.id)}
+                                        className="radio"
+                                    />
+                                    <span className="taskText">{task.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="tasksScope">
+                        <h2>Completed Tasks</h2>
+                        <ul className="taskList">
+                            {completedTasks.map((task) => (
+                                <li key={task.id} className="taskItem">
+                                    <input
+                                        type="checkbox"
+                                        checked={task.completed}
+                                        onChange={() => toggleTask(task.id)}
+                                        className="radio"
+                                    />
+                                    <span className="taskText">{task.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="rateScope">
+                        <span className="percentOfCompleting">
+                            Percent of completion: {percentOfCompleting}%
+                        </span>
+                        <span className="percentOfCompleting">Remaining tasks: {uncompletedTasks.length}</span>
+                        {completedTasks.length > 0 && (
+                            <button className="clearCompletedBtn" onClick={removeCompletedTasks}>
+                                Clear Completed
+                            </button>
+                        )}
+                    </div>
+                </>
+            )}
         </div>
     );
 }
