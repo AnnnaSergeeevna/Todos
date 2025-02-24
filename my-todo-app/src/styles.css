@@ -1,0 +1,58 @@
+.todosText {
+    font-family: sans-serif;
+    font-weight: 100;
+    font-stretch: ultra-expanded;
+}
+
+.list {
+    background-color: white;
+    width: 50%;
+    height: 50%;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tasksScope {
+    border-top: 3px solid #e5e5e5;
+    border-bottom: 3px solid #e5e5e5;
+}
+
+.taskItem {
+    display: flex;
+    width: 100%;
+    flex-direction: start;
+    list-style: none;
+    font-size: xx-large;
+    padding: 10px;
+    border-bottom: 3px solid #f6f6f6;
+}
+
+.radio {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.radio:checked {
+    /* border-color: white;; */
+    background-color: white;
+    ;
+}
+
+.radio:checked::after {
+    content: "✔";
+    color: green;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
