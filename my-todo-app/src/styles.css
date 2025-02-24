@@ -2,6 +2,33 @@
     font-family: sans-serif;
     font-weight: 100;
     font-stretch: ultra-expanded;
+    color: rgb(235, 222, 222);
+    font-size: 5rem;
+    margin: 20px;
+}
+
+.fieldForNewTask {
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    border-top: 5px solid #e8e8e8;
+    border-bottom: 3px solid #e8e8e8;
+}
+
+.addNewTaskInput {
+    width: 50%;
+    border: 3px solid #e8e8e8;
+}
+
+.addBtn {
+    border: 3px solid #e8e8e8;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 20px;
 }
 
 .list {
@@ -11,19 +38,30 @@
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+h2 {
+    font-family: sans-serif;
+    font-weight: 500;
+}
+
 .tasksScope {
-    border-top: 3px solid #e5e5e5;
-    border-bottom: 3px solid #e5e5e5;
+    font-family: sans-serif;
+    font-weight: 200;
+    border-top: 3px solid #e8e8e8;
+    border-bottom: 3px solid #e8e8e8;
+}
+
+.taskList {
+    list-style: none;
 }
 
 .taskItem {
     display: flex;
-    width: 100%;
-    flex-direction: start;
+    width: 95%;
+    justify-content: start;
     list-style: none;
     font-size: xx-large;
     padding: 10px;
-    border-bottom: 3px solid #f6f6f6;
+    border-bottom: 3px solid #e8e8e8;
 }
 
 .radio {
@@ -38,6 +76,8 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     position: relative;
+    cursor: pointer;
+
 }
 
 .radio:checked {
@@ -56,3 +96,5 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.rateScope {}

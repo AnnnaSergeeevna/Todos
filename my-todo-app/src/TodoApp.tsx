@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './styles.css';
+import "./styles.css";
 
 interface Task {
     id: number;
@@ -19,103 +19,71 @@ function TodoApp() {
     };
 
     const toggleTask = (id: number) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? { ...task, completed: !task.completed } : task
-        ));
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === id ? { ...task, completed: !task.completed } : task
+            )
+        );
     };
 
-    // const removeCompleted = () => {
-    //     setTasks(tasks.filter(task => !task.completed));
-    // };
-
-    const completedTasks = tasks.filter(task => task.completed);
-    const uncompletedTasks = tasks.filter(task => !task.completed);
+    const completedTasks = tasks.filter((task) => task.completed);
+    const uncompletedTasks = tasks.filter((task) => !task.completed);
+    const percentOfCompleting = Math.round((completedTasks.length / tasks.length) * 100);
 
     return (
-        <div className="list" >
-            <h1 className="todosText" > todos </h1>
-            <div className="flex gap-2 mb-4" >
+        <div className="list">
+            <h1 className="todosText">todos</h1>
+            <div className="fieldForNewTask">
                 <input
-                    className="border p-2 rounded w-full"
+                    className="addNewTaskInput"
                     value={newTask}
-                    onChange={e => setNewTask(e.target.value)}
-                    placeholder="What needs to be do"
+                    onChange={(e) => setNewTask(e.target.value)}
+                    placeholder="What needs to be done?"
                 />
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                    onClick={addTask}
-                >
+                <button className="addBtn" onClick={addTask}>
                     Add
                 </button>
             </div>
 
-            {/* Список невыполненных задач */}
             <div className="tasksScope">
-                <h2 className="">Uncompleted Tasks</h2>
-                <ul>
-                    {
-                        uncompletedTasks.map(task => (
-                            <li key={task.id} className="taskItem">
-                                {/* Радиокнопка слева от задачи */}
-                                <input
-                                    type="radio"
-                                    name="task"
-                                    checked={task.completed}
-                                    onChange={() => toggleTask(task.id)} // при клике меняем состояние задачи
-                                    className="radio"
-                                />
-                                <span
-                                    className={`cursor-pointer ${task.completed ? "line-through text-gray-500" : ""}`}
-                                    onClick={() => toggleTask(task.id)} // При клике на текст тоже меняем состояние задачи
-                                >
-                                    {task.text}
-                                </span>
-                            </li>
-                        ))
-                    }
+                <h2>Uncompleted Tasks</h2>
+                <ul className="taskList">
+                    {uncompletedTasks.map((task) => (
+                        <li key={task.id} className="taskItem">
+                            <input
+                                type="checkbox"
+                                checked={task.completed}
+                                onChange={() => toggleTask(task.id)}
+                                className="radio"
+                            />
+                            <span className="taskText">{task.text}</span>
+                        </li>
+                    ))}
                 </ul>
             </div>
 
-            {/* Список выполненных задач */}
             <div className="tasksScope">
-                <h2 className="text-lg font-semibold">Completed Tasks</h2>
-                <ul>
-                    {
-                        completedTasks.map(task => (
-                            <li key={task.id} className="taskItem">
-                                {/* Радиокнопка слева от задачи */}
-                                <input
-                                    type="radio"
-                                    name="task"
-                                    checked={task.completed}
-                                    onChange={() => toggleTask(task.id)} // при клике меняем состояние задачи
-                                    className="radio"
-                                />
-                                <span
-                                    className={`cursor-pointer ${task.completed ? "line-through text-gray-500" : ""}`}
-                                    onClick={() => toggleTask(task.id)} // При клике на текст тоже меняем состояние задачи
-                                >
-                                    {task.text}
-                                </span>
-                            </li>
-                        ))
-                    }
+                <h2>Completed Tasks</h2>
+                <ul className="taskList">
+                    {completedTasks.map((task) => (
+                        <li key={task.id} className="taskItem">
+                            <input
+                                type="checkbox"
+                                checked={task.completed}
+                                onChange={() => toggleTask(task.id)}
+                                className="radio"
+                            />
+                            <span className="taskText">{task.text}</span>
+                        </li>
+                    ))}
                 </ul>
             </div>
-
-            {/* Количество оставшихся задач */}
-            {/* <p className="mt-4">Remaining: {uncompletedTasks.length}</p> */}
-
-            {/* Кнопка для очистки выполненных задач */}
-            {/* <button
-                className="bg-red-500 text-white px-4 py-2 rounded mt-2"
-                onClick={removeCompleted}
-            >
-                Clear Completed
-            </button> */}
+            {tasks.length > 0 && (
+                <div className="rateScope">
+                    <span className="percentOfCompleting">Percent of completing {percentOfCompleting}%</span>
+                </div>)}
         </div>
     );
 }
-
 
 export default TodoApp;
